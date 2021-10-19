@@ -1,47 +1,80 @@
 ﻿using Business.Abstract;
 using Core.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
 {
     public class TaskManager : ITaskService
     {
-        public IResult Add(Task task)
+        ITaskDal _taskDal;
+        public TaskManager(ITaskDal taskDal)
         {
-            throw new NotImplementedException();
+            _taskDal = taskDal;
+        }
+        public IResult Add(Tasks task) // yeni görev kaydeder
+        {
+            task.WeekId = FindWeekId(task.Date);
+            task.MonthId = task.Date.Month;
+            task.IsDone = false;
+            _taskDal.Add(task);
+            return new SuccessResult();
         }
 
-        public IDataResult<List<Task>> GetAll()
+        public IDataResult<List<Tasks>> GetAll() // Bütün görevleri getirir
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Tasks>>(_taskDal.GetAll());
         }
 
-        public IDataResult<List<Task>> GetAllTaskOfDay(Day day)
+        public IDataResult<List<Tasks>> GetAllTaskOfDay(DateTime date)  // parametre olarak gelen tarihteki görevleri listeler
         {
-            throw new NotImplementedException();
+            
+            return new SuccessDataResult<List<Tasks>>(_taskDal.GetAll(t=>t.Date.Date == date.Date).ToList());
         }
 
-        public IDataResult<List<Task>> GetAllTaskOfMonth(Month month)
+        public IDataResult<List<Tasks>> GetAllTaskOfMonth(int monthId)  // parametre olarak gelen ayda ki görevleri listeler
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Tasks>>(_taskDal.GetAll(d => d.Date.Month == monthId));
         }
 
-        public IDataResult<List<Task>> GetAllTaskOfWeek(int weekId)
+        public IDataResult<List<Tasks>> GetAllTaskOfWeek(DateTime date) // parametre olarak gelen haftada ki görevleri listeler
         {
-            throw new NotImplementedException();
+            int weekId = FindWeekId(date);
+            return new SuccessDataResult<List<Tasks>>(_taskDal.GetAll(d => d.WeekId==weekId));
         }
 
-        public IDataResult<Task> GetById(int taskId)
+        public IDataResult<Tasks> GetById(int taskId) // parametre olarak gelen Id'nin verilerini getirir
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Tasks>(_taskDal.Get(t=>t.Id==taskId));
         }
 
-        public IResult Update(Task task)
+        public IResult Update(Tasks task)  // görev güncelleme
         {
-            throw new NotImplementedException();
+            task.WeekId = FindWeekId(task.Date);
+            task.MonthId = task.Date.Month;
+            _taskDal.Update(task);
+            return new SuccessResult();
+        }
+        public int FindWeekId(DateTime date)  // Verilen tarihin yılın kaçıncı haftası olduğunu bulur.
+        {
+            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
+            if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
+                date = date.AddDays(3);
+            }
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+        }
+
+        public IResult Delete(int Id) // verilen Id'deki nesneyi siler
+        {
+            _taskDal.Delete(new Tasks { Id = Id });
+            return new SuccessResult();
         }
     }
 }

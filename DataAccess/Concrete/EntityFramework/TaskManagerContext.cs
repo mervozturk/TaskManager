@@ -11,9 +11,6 @@ namespace DataAccess.Concrete.EntityFramework
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=TaskManager;Trusted_Connection=true");
         }
-
-        public DbSet<Day> Days { get; set; }
-        public DbSet<Month> Months { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
     }
 }

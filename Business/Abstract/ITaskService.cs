@@ -8,12 +8,14 @@ namespace Business.Abstract
 {
     public interface ITaskService
     {
-        IDataResult<List<Task>> GetAll(); 
-        IDataResult<List<Task>> GetAllTaskOfDay(Day day);
-        IDataResult<List<Task>> GetAllTaskOfWeek(int weekId);
-        IDataResult<List<Task>> GetAllTaskOfMonth(Month month);
-        IDataResult<Task> GetById(int taskId);
-        IResult Add(Task task);
-        IResult Update(Task task);
+        // Tasks için yazılacak fonksiyonlar listesi
+        IDataResult<List<Tasks>> GetAll(); 
+        IDataResult<List<Tasks>> GetAllTaskOfDay(DateTime date);
+        IDataResult<List<Tasks>> GetAllTaskOfWeek(DateTime date);
+        IDataResult<List<Tasks>> GetAllTaskOfMonth(int monthId);
+        IDataResult<Tasks> GetById(int taskId);
+        IResult Add(Tasks task);
+        IResult Update(Tasks task);
+        IResult Delete(int Id);
     }
 }

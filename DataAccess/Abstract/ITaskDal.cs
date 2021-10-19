@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ITaskDal :IEntityRepository<Task>
+    public interface ITaskDal :IEntityRepository<Tasks>
     {
     }
 }

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Week";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+<h2 style="text-align:center;" >Haftalık Plan</h2>
+<table class="table table-bordered" >
+    <tbody>
+        @foreach (var day in ViewBag.ListofDays)
+        {
+        <tr>
+            <th width="250px" style="background-color: rgb(0, 178, 255,.125)" >@day.ToString("D") </th>
+            <td>
+                @foreach (var task in ViewBag.TaskofWeek)
+                {
+                    if (@task.Date.Day == @day.Day)
+                    {
+                        <div class="btn btn-primary;  display:inline-block;" href="/Tasks/Update/@task.Id"> <a class="btn btn-primary;" href="/Tasks/Update/@task.Id">@task.Header</a> </div> 
+                        <br />
+                    }
+                 }
+            </td>
+
+            </tr>
+
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,46 @@
+﻿@model MVC.Models.TaskModel
+@{
+    ViewData["Title"] = "AddTask";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h1 style="text-align:center;"> Görev Ekle </h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        @using (var form = Html.BeginForm("AddTask", "Tasks", FormMethod.Post))
+        {
+            @Html.LabelFor(t => t.Header)
+            <br />
+            @Html.TextBoxFor(t => t.Header, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Header, null, new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(t => t.Description)
+            <br />
+            @Html.TextBoxFor(t => t.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Description, null, new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(t => t.Date)
+            <br />
+            @Html.TextBoxFor(t => t.Date, string.Format("{0:dd.MM.yyyy}", Model), new { @class = "form-control date-picker" })
+            @Html.ValidationMessageFor(t => t.Date, null, new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(t => t.Time)
+            <br />
+            @Html.TextBoxFor(t => t.Time, string.Format("{0:HH:mm}", Model), new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => t.Time, null, new { @class = "text-danger" })
+
+            @if (ViewBag.Result != null)
+            {
+                <div class="alert alert-success"> Kayıt başarılı!</div>
+
+
+            }
+            <input type="submit" value="Kaydet" class="btn btn-success;" style="margin:20px;" />
+        }
+
+
+
+    </div>
+</div>

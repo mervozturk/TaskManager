@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h2 style="text-align:center;">
+    @{
+    var text = ViewData["Date"];
+    }
+    @text
+</h2>
+<table class="table table-bordered">
+    <tr>
+        <th></th>
+        <th>Saat</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th></th>
+    </tr>
+    <tbody>
+    
+        @foreach (var item in ViewBag.task)
+        {
+            @if (item.IsDone)
+            {
+                <tr style="background-color: lightblue;">
+                    <td> <input type="checkbox" checked="@item.IsDone" onclick="window.location.href = '/Tasks/ToggleIsDone/@item.Id';"></td>
+                    <td>@item.Time</td>
+                    <td>@item.Header</td>
+                    <td>@item.Description</td>
+                    <td><a class="btn btn-secondary;">Düzenle</a></td>
+                </tr>
+            }
+            else
+            {
+    <tr>
+        <td> <input type="checkbox" checked="@item.IsDone" style="text-align:center;" onclick="window.location.href = '/Tasks/ToggleIsDone/@item.Id';"></td>
+        <td>@item.Time</td>
+        <td>@item.Header</td>
+        <td>@item.Description</td>
+        <td><a class="btn btn-primary;" href="/Tasks/Update/@item.Id">Düzenle</a></td>
+    </tr>
+            }
+
+        }
+    </tbody>
+</table>

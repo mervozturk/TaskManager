@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "Month";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<h1 style=" text-align: center;">@DateTime.Now.ToString("MMMM") Planı</h1>
+body{
+}
+<div style="margin-right: 50px; margin-right: 20px;">
+    <table class="table table-bordered" >
+        <tr class="bg-info">
+            <th style="text-align: center;">Pazartesi</th>
+            <th style="text-align: center;">Salı</th>
+            <th style="text-align: center;">Çarşamba</th>
+            <th style="text-align: center;">Perşembe</th>
+            <th style="text-align: center;">Cuma</th>
+            <th style="text-align: center;">Cumartesi</th>
+            <th style="text-align: center;">Pazar</th>
+        </tr>
+
+
+        @for (int i = 0; i < 5; i++)
+        {
+            <tr>
+                @for (int j = 0; j < 7; j++)
+                {
+                    @if (@ViewBag.listOfDays[i * 7 + j].Year > 1)
+                    {
+
+                        <td width="150" height="150" style="text-align: center;">
+                            <label style="border-bottom: solid; "> @ViewBag.listOfDays[i * 7 + j].ToShortDateString() </label>
+                            @foreach (var item in ViewBag.TaskofMonth)
+                            {
+                                <ul>
+                                    @if (item.Date == @ViewBag.listOfDays[i * 7 + j])
+                                    {
+                                        <li style="list-style-type:none; margin:5px,auto;" class="btn btn-info">
+
+                                            <a class="btn btn-primary;" href="/Tasks/Update/@item.Id">@item.Header</a>
+                                        </li>
+
+                                    }
+                                </ul>
+
+                            }
+                        </td>
+
+
+                    }
+                    else
+                    {
+                        <td> </td>
+                    }
+                }
+            </tr>
+        }
+
+
+
+
+    </table>
+
+</div>
+
