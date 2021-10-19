@@ -86,7 +86,7 @@ namespace MVC.Controllers
             ViewBag.task = taskManager.GetAllTaskOfDay(DateTime.Now).Data;
             return View("Index");
         }
-
+       
         [HttpPost]
         public IActionResult AddTask(Tasks tasks)  // yeni görev ekleme sayfası
         {
