@@ -22,7 +22,7 @@ Core katmanında bulunan DataAccess klasörü Veritabanı işlemleri için oluş
 Yazılacak temel Crud işlemlerini bulunduran bir interface'dir.EfEntityRepositoryBase ise IEntityRepository'den implament edilmiş bir sınıftır. Bu sınıf generic bir sınıftır. 
 DbContext ve Entity attribute classını parametre olarak alır ve MSSQl için Crud işlemlerini yapar. Bu class kod tekrarını en aza indirger.
 <br>
-Core katmanında bulunan diğer bir klasörde Result'dır. Result sınıfı fonksiyon geri dönüşlerini özelleştiren bir sınıftır. Data döndürmeyen fonksiyonlar için Result Data döndürenler içinse Data result yapısı kullanılır.
+Core katmanında bulunan diğer bir klasörde Result'dır. Result sınıfı fonksiyon geri dönüşlerini özelleştiren bir sınıftır. Data döndürmeyen fonksiyonlar için Result, data döndürenler içinse Data result yapısı kullanılır.
 Bu Sınıflar temelde fonksiyonun başarı durumunu fonksiyon sonucunda kullanıcıya döndürülecek mesajı ve var ise datayı döndürür.
 <br><br>
 -*DataAccess* : Veritabanına kayıt işlemleri ile ilgili sınıflar bulunur.
