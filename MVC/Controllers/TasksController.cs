@@ -84,7 +84,7 @@ namespace MVC.Controllers
             
             var result=taskManager.Update(task);
             ViewBag.task = taskManager.GetAllTaskOfDay(DateTime.Now).Data;
-            return View("Index");
+            return RedirectToAction("Index");
         }
        
         [HttpPost]
