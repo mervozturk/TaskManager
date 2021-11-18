@@ -11,6 +11,7 @@ namespace MVC.Controllers
     public class TasksController : Controller
     {
         TaskManager taskManager = new TaskManager(new EFTaskDal());
+     
         public IActionResult Index() // buulunduğumuz tarihteki yapılacakları listeleyen sayfa
         {
             ViewBag.task = taskManager.GetAllTaskOfDay(DateTime.Now).Data;
@@ -66,7 +67,7 @@ namespace MVC.Controllers
             }
             ViewBag.ListofDays = listofdays;
             ViewBag.TaskofMonth = taskManager.GetAllTaskOfMonth(DateTime.Now.Month).Data;
-
+            ViewBag.LastDay = (int)LastDayOfMonth.Day;
             return View();
         }
         [HttpGet]
@@ -83,7 +84,6 @@ namespace MVC.Controllers
             }
             
             var result=taskManager.Update(task);
-            ViewBag.task = taskManager.GetAllTaskOfDay(DateTime.Now).Data;
             return RedirectToAction("Index");
         }
        
